@@ -56,13 +56,17 @@ const novamenteBtn = document.querySelector('.novamente-btn');
 
 // Função para exibir uma pergunta e alternativas
 function exibirPergunta(pergunta) {
+    // Exibe a pergunta
     caixaPerguntas.textContent = pergunta.pergunta;
+    // Limpa as alternativas anteriores
     caixaAlternativas.innerHTML = '';
 
+    // Cria os botões de alternativas
     pergunta.alternativas.forEach((alternativa, index) => {
         const botaoAlternativa = document.createElement('button');
         botaoAlternativa.textContent = alternativa;
         botaoAlternativa.classList.add('alternativa-btn');
+        // Associa o evento de clique ao botão
         botaoAlternativa.addEventListener('click', () => mostrarResultado(pergunta.resultado));
         caixaAlternativas.appendChild(botaoAlternativa);
     });
@@ -70,23 +74,31 @@ function exibirPergunta(pergunta) {
 
 // Função para exibir o resultado
 function mostrarResultado(resultado) {
+    // Exibe o texto do resultado
     textoResultado.textContent = resultado;
+    // Mostra a caixa de resultado
     caixaResultado.classList.add('mostrar');
+    // Esconde as perguntas e alternativas
     caixaPerguntas.style.display = 'none';
     caixaAlternativas.style.display = 'none';
 }
 
 // Função para reiniciar o jogo
 function jogarNovamente() {
+    // Esconde o resultado
     caixaResultado.classList.remove('mostrar');
+    // Exibe novamente as perguntas e alternativas
     caixaPerguntas.style.display = 'block';
     caixaAlternativas.style.display = 'flex';
+
+    // Escolhe uma pergunta aleatória
     const perguntaAleatoria = perguntas[Math.floor(Math.random() * perguntas.length)];
+    // Exibe a pergunta
     exibirPergunta(perguntaAleatoria);
 }
 
-// Inicializar o jogo
+// Inicializa o jogo com uma pergunta aleatória
 jogarNovamente();
 
-// Adicionar o evento para o botão de jogar novamente
+// Adiciona o evento para o botão de jogar novamente
 novamenteBtn.addEventListener('click', jogarNovamente);
